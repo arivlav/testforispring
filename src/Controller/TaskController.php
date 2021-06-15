@@ -36,7 +36,7 @@ class TaskController extends AbstractController
     }
 
     /**
-     * @Route("api/new_task", name="create", methods={"POST"})
+     * @Route("api/new_task", name="createTask", methods={"POST"})
      */
     public function createTask(ValidatorInterface $validator): Response
     {   
