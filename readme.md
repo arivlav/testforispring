@@ -18,6 +18,7 @@ DATABASE_URL="mysql://root:1234@127.0.0.1:3306/todolist?serverVersion=5.7&charse
 
 Создать базу 
 >php bin/console doctrine:database:create
+
 Применить миграции для создания таблиц в БД
 >php bin/console doctrine:migrations:migrate
 
