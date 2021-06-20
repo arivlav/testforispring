@@ -24,7 +24,8 @@ DATABASE_URL="mysql://root:1234@127.0.0.1:3306/todolist?serverVersion=5.7&charse
 
 перейдите в папку public и запустите встроенный в php локальный веб-сервер
 >cd public
->php -S php -S localhost:8080
+
+>php -S localhost:8080
 
 Доступны следующие маршруты:
 GET     localhost:8080/V1/tasks   - получение списка всех активных задач
