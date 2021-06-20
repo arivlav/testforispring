@@ -28,8 +28,13 @@ DATABASE_URL="mysql://root:1234@127.0.0.1:3306/todolist?serverVersion=5.7&charse
 >php -S localhost:8080
 
 Доступны следующие маршруты:
+
 GET     localhost:8080/V1/tasks   - получение списка всех активных задач
+
 POST    localhost:8080/V1/tasks   - создание задачи
+
 PUT     localhost:8080/V1/tasks/2 - изменение статуса задачи с id = 2 c "активной" на "выполненную"
+
 DELETE  localhost:8080/V1/tasks/2 - удаление задачи с id = 2
+
 GET     localhost:8080/V1/tasks/archive - получение списка всех выполненных задач
