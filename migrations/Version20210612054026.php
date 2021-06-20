@@ -20,12 +20,24 @@ final class Version20210612054026 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE task (id INT AUTO_INCREMENT NOT NULL, description LONGTEXT NOT NULL, status INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET UTF8 COLLATE `UTF8_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('
+            CREATE TABLE task (
+                id          INT      AUTO_INCREMENT NOT NULL, 
+                description LONGTEXT                NOT NULL, 
+                status      INT                     NOT NULL, 
+                PRIMARY     KEY(id)
+            ) 
+            DEFAULT CHARACTER SET UTF8 
+            COLLATE `UTF8_unicode_ci` 
+            ENGINE = InnoDB
+        ');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('DROP TABLE task');
+        $this->addSql('
+            DROP TABLE task
+        ');
     }
 }

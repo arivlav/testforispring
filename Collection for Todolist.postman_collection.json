@@ -6,20 +6,20 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:8000/api/get_task_list",
+			"name": "http://localhost:8000/V1/tasks",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/get_task_list",
+					"raw": "http://localhost:8000/V1/tasks",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8000",
 					"path": [
-						"api",
-						"get_task_list"
+						"V1",
+						"tasks"
 					]
 				},
 				"description": "Данный запрос позволяет получить список невыполненных задач.\nФормат данных\n[\n   {\n        \"id\": 3,\n        \"description\": \"Третья задача\",\n        \"status\": 0\n    },\n    {\n       ...\n    }\n]"
@@ -27,7 +27,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8000/api/complete_task/32",
+			"name": "http://localhost:8000/V1/tasks/5",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -43,16 +43,16 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:8000/api/complete_task/10",
+					"raw": "http://localhost:8000/V1/tasks/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8000",
 					"path": [
-						"api",
-						"complete_task",
-						"10"
+						"V1",
+						"tasks",
+						"5"
 					]
 				},
 				"description": "Данный запрос позволяет отметить задачу с определенным id как выполненную\n\nhttp://localhost:8000/api/complete_task/id"
@@ -60,21 +60,21 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8000/api/delete_task/7",
+			"name": "http://localhost:8000/V1/tasks/2",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/delete_task/30",
+					"raw": "http://localhost:8000/V1/tasks/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8000",
 					"path": [
-						"api",
-						"delete_task",
-						"30"
+						"V1",
+						"tasks",
+						"2"
 					]
 				},
 				"description": "Данный запрос позволяет удалить задачу с определенным id\n\nhttp://localhost:8000/api/delete_task/id"
@@ -82,20 +82,21 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8000/api/get_archive_task_list",
+			"name": "http://localhost:8000/V1/tasks/archive",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/get_archive_task_list",
+					"raw": "http://localhost:8000/V1/tasks/archive",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8000",
 					"path": [
-						"api",
-						"get_archive_task_list"
+						"V1",
+						"tasks",
+						"archive"
 					]
 				},
 				"description": "Данный запрос позволяет получить список выполненных задач\nФормат полученных данных.\n[\n   {\n        \"id\": 3,\n        \"description\": \"Третья задача\",\n        \"status\": 1\n    },\n    {\n       ...\n    }\n]"
@@ -103,7 +104,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8000/api/new_task",
+			"name": "http://localhost:8000/V1/tasks",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -112,21 +113,21 @@
 					"formdata": [
 						{
 							"key": "description",
-							"value": "Что-то надлсделать",
+							"value": "Что-то надо сделать ещё",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "http://localhost:8000/api/new_task",
+					"raw": "http://localhost:8000/V1/tasks",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8000",
 					"path": [
-						"api",
-						"new_task"
+						"V1",
+						"tasks"
 					]
 				},
 				"description": "Данный запрос позволяет создать новую задачу"

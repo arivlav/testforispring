@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=TaskRepository::class)
  */
-class Task
+class Task implements \JsonSerializable 
 {
     /**
      * @ORM\Id
@@ -69,5 +69,14 @@ class Task
         $this->status = $status;
 
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            "id" => $this->getId(),
+            "description" => $this->getDescription(),
+            "status" => $this->getStatus()
+        ];
     }
 }
