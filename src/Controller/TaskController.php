@@ -19,36 +19,42 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
   */
 class TaskController extends AbstractController
 {
+    public $taskRepository;
+    public $taskStatus;
+    public $validator;
+
+    function __construct(TaskRepository $taskRepository, TaskStatus $taskStatus, ValidatorInterface $validator) {
+        $this->taskRepository = $taskRepository;
+        $this->taskStatus = $taskStatus;
+        $this->validator = $validator;
+    }
+    
     /**
-    * @param TaskRepository $taskRepository
-    * @return JsonResponse
     * @Route("/tasks", name="tasks", methods={"GET"})
     */
-    public function getTasks(TaskRepository $taskRepository, TaskStatus $taskStatus): JsonResponse
+    public function getTasks(): JsonResponse
     {
-        $data = $taskRepository->findByStatus($taskStatus::IN_PROGRESS);
+        $data = $this->taskRepository->findByStatus($this->taskStatus::IN_PROGRESS);
         return $this->response($data);
     }
 
     /**
      * @param Request $request
-     * @param ValidatorInterface $validator
-     * @return JsonResponse
      * @Route("/tasks", name="tasks_create", methods={"POST"})
      */
-    public function createTask(TaskRepository $taskRepository, Request $request, ValidatorInterface $validator): JsonResponse
+    public function createTask(Request $request): JsonResponse
     {      
         $description = $request->request->get('description');
         $task = new Task();
         $task->setDescription($description);
         $task->setStatus(0);
-        $errors = $validator->validate($task);
+        $errors = $this->validator->validate($task);
         if (count($errors) > 0) 
         {
             return $this->response($errors, JsonResponse::HTTP_NOT_FOUND);
         }
         
-        $taskRepository->createUpdateTask($task);
+        $this->taskRepository->createUpdateTask($task);
         $data = [
             "answer" => "Task ".$task->getId()." created!",
         ];
@@ -56,22 +62,21 @@ class TaskController extends AbstractController
     }
     
     /**
-    * @param TaskRepository $taskRepository
     * @param $id
     * @return JsonResponse
     * @Route("/tasks/{id}", name="tasks_complete", requirements={"id"="\d+"}, methods={"PUT"})
     */
-    public function completeTask($id, TaskRepository $taskRepository): JsonResponse
+    public function completeTask($id): JsonResponse
     {
-        $task = $taskRepository->find($id);
+        $task = $this->taskRepository->find($id);
         if (!$task) {
             $data = [
                 "answer" => "Task ".$id." not found.",
             ];
-            return $this->response($data, Response::HTTP_NOT_FOUND);
+            return $this->response($data, JsonResponse::HTTP_NOT_FOUND);
         }
         $task->setStatus(1);
-        $taskRepository->createUpdateTask($task);
+        $this->taskRepository->createUpdateTask($task);
         $data = [
             "answer" => "Task ".$id." comleted!",
         ];
@@ -79,23 +84,22 @@ class TaskController extends AbstractController
     }
 
     /**
-    * @param TaskRepository $taskRepository
     * @param $id
     * @return JsonResponse
     * @Route("/tasks/{id}", name="tasks_delete", requirements={"id"="\d+"}, methods={"DELETE"})
     */
-    public function deleteTask($id, TaskRepository $taskRepository): JsonResponse
+    public function deleteTask($id): JsonResponse
     {
-        $task = $taskRepository->find($id);
+        $task = $this->taskRepository->find($id);
 
         if (!$task) {
             $data = [
                 "answer" => "Task ".$id." not found.",
             ];
-            return $this->response($data, Response::HTTP_NOT_FOUND);
+            return $this->response($data, JsonResponse::HTTP_NOT_FOUND);
         }
 
-        $taskRepository->deleteTask($task);
+        $this->taskRepository->deleteTask($task);
         $data = [
             "answer" => "Task ".$id." deleted!",
         ];
@@ -103,13 +107,12 @@ class TaskController extends AbstractController
     }
 
     /**
-    * @param TaskRepository $taskRepository
     * @return JsonResponse
     * @Route("/tasks/archive", name="tasks_archive", methods={"GET"})
     */
-    public function getArchiveList(TaskRepository $taskRepository, TaskStatus $taskStatus): JsonResponse
+    public function getArchiveList(): JsonResponse
     {
-        $data = $taskRepository->findByStatus($taskStatus::COMPLETED);
+        $data = $this->taskRepository->findByStatus($this->taskStatus::COMPLETED);
         return $this->response($data);
     }
     
